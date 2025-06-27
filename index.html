@@ -1,1 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rushabh Gohil - Web Developer & Data Science Professional</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            min-height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+            padding: 40px 30px;
+            position: relative;
+            box-shadow: 5px 0 20px rgba(0,0,0,0.3);
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4);
+        }
+
+        .profile-img i {
+            font-size: 80px;
+            color: #2a2a2a;
+        }
+
+        .profile-info {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .profile-info h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .profile-info p {
+            color: #cccccc;
+            font-size: 1.1em;
+            font-weight: 300;
+        }
+
+        .contact-info {
+            space-y: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-left-color: #ffd700;
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .contact-icon i {
+            color: #2a2a2a;
+            font-size: 18px;
+        }
+
+        .contact-details h4 {
+            color: #cccccc;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .contact-details p {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #2a2a2a;
+            transform: translateY(-3px);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 40px 50px;
+            overflow-y: auto;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 60px;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: #cccccc;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1em;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .section {
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.4s; }
+        .section:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 3em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            border-radius: 2px;
+        }
+
+        .about-content {
+            font-size: 1.2em;
+            color: #cccccc;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .skill-category {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .skill-category h3 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: rgba(255, 215, 0, 0.3);
+            transform: scale(1.05);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .service-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 35px;
+            color: #2a2a2a;
+        }
+
+        .service-card h3 {
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .service-card p {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        .experience-timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, #ffd700, #ffed4e);
+        }
+
+        .experience-item {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            margin-left: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -45px;
+            top: 30px;
+            width: 15px;
+            height: 15px;
+            background: #ffd700;
+            border-radius: 50%;
+            border: 3px solid #2a2a2a;
+        }
+
+        .experience-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .experience-item h3 {
+            color: #ffd700;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .experience-item .company {
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .experience-item .duration {
+            color: #999999;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .experience-item ul {
+            color: #cccccc;
+            padding-left: 20px;
+        }
+
+        .experience-item li {
+            margin-bottom: 8px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .project-header i {
+            font-size: 50px;
+            color: #2a2a2a;
+            margin-bottom: 15px;
+        }
+
+        .project-header h3 {
+            color: #2a2a2a;
+            font-size: 1.4em;
+            font-weight: 700;
+        }
+
+        .project-body {
+            padding: 30px;
+        }
+
+        .project-body p {
+            color: #cccccc;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-tag {
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .cert-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #ffd700;
+        }
+
+        .cert-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .cert-card h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .cert-card p {
+            color: #cccccc;
+            font-size: 0.9em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: relative;
+                padding: 30px 20px;
+            }
+            
+            .main-content {
+                padding: 30px 30px;
+            }
+            
+            .navigation {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .profile-img {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .profile-img i {
+                font-size: 60px;
+            }
+            
+            .profile-info h1 {
+                font-size: 1.8em;
+            }
+            
+            .section-title {
+                font-size: 2.2em;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .services-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: #ffd700;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles" id="particles"></div>
+    
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="profile-img">
+                <i class="fas fa-user-tie"></i>
+            </div>
+            
+            <div class="profile-info">
+                <h1>Rushabh Gohil</h1>
+                <p>Web Developer & Data Science Professional</p>
+            </div>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Email</h4>
+                        <p>ruusshabh12@gmail.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Phone</h4>
+                        <p>+91 7977559430</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Location</h4>
+                        <p>Mumbai, Maharashtra</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://linkedin.com/in/rushabh-gohil" class="social-link" target="_blank">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://github.com/ruusshabh12" class="social-link" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:ruusshabh12@gmail.com" class="social-link">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <nav class="navigation">
+                <a href="#about" class="nav-link active">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            
+            <!-- About Section -->
+            <section id="about" class="section">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-content">
+                    <p>I'm a driven Web Developer and Data Science Professional with 2+ years of experience in CMS/LMS platforms, quality assurance, and predictive analytics. I specialize in turning complex problems into simple, beautiful and intuitive solutions.</p>
+                    
+                    <p>My expertise spans across web development, data analysis, and machine learning. I enjoy building functional and user-friendly applications while ensuring they are attractive and optimized for performance. I've worked with prestigious institutions and delivered scalable solutions for global teams.</p>
+                </div>
+                
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Technical Skills</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">SQL</span>
+                            <span class="skill-tag">HTML/CSS</span>
+                            <span class="skill-tag">Tableau</span>
+                            <span class="skill-tag">MS Excel</span>
+                            <span class="skill-tag">Machine Learning</span>
+                            <span class="skill-tag">Pandas</span>
+                            <span class="skill-tag">NumPy</span>
+                            <span class="skill-tag">Sklearn</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>Platforms & Tools</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Moodle</span>
+                            <span class="skill-tag">Canvas</span>
+                            <span class="skill-tag">Blackboard</span>
+                            <span class="skill-tag">LMS/CMS</span>
+                            <span class="skill-tag">Quality Assurance</span>
+                            <span class="skill-tag">XGBoost</span>
+                            <span class="skill-tag">Random Forest</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>Soft Skills</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Communication</span>
+                            <span class="skill-tag">Problem Solving</span>
+                            <span class="skill-tag">Time Management</span>
+                            <span class="skill-tag">Team Collaboration</span>
+                            <span class="skill-tag">Remote Work</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Services Section -->
+            <section id="services" class="section">
+                <h2 class="section-title">What I Do</h2>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Web Development</h3>
+                        <p>High-quality development of websites and web applications at the professional level using modern technologies and best practices.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Data Analytics</h3>
+                        <p>Professional data analysis and visualization services using Python, SQL, and Tableau to derive meaningful insights from complex datasets.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>Machine Learning</h3>
+                        <p>Development of predictive models and machine learning solutions using advanced algorithms to solve real-world business problems.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>LMS Management</h3>
+                        <p>Expert management and optimization of Learning Management Systems including Moodle, Canvas, and Blackboard platforms.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Experience Section -->
+            <section id="experience" class="section">
+                <h2 class="section-title">Experience</h2>
+                
+                <div class="experience-timeline">
+                    <div class="experience-item">
+                        <h3>Web Developer</h3>
+                        <div class="company">Learning Vitals</div>
+                        <div class="duration">Oct 2023 – Aug 2024</div>
+                        <ul>
+                            <li>Developed dynamic web pages using HTML/CSS, improving user engagement by 25%</li>
+                            <li>Managed 50+ courses on CMS platforms, ensuring 100% QA compliance</li>
+                            <li>Collaborated with remote teams to deploy 10+ LMS modules, reducing turnaround time by 15%</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <h3>Web Content Developer</h3>
+                        <div class="company">Innovative Data Solutions</div>
+                        <div class="duration">July 2022 – Sep 2023</div>
+                        <ul>
+                            <li>Collaborated with prestigious institutions such as Latrobe University to enhance website functionality</li>
+                            <li>Optimized website functionality for Latrobe University, reducing user-reported issues by 30%</li>
+                            <li>Conducted A/B testing, increasing course enrollment by 20%</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Education -->
+                <h3 style="color: #ffd700; margin: 50px 0 30px 0; font-size: 1.8em;">Education</h3>
+                <div class="experience-timeline">
+                    <div class="experience-item">
+                        <h3>Master of Data Science</h3>
+                        <div class="company">Simplilearn</div>
+                        <div class="duration">2023 – 2024</div>
+                        <ul>
+                            <li>Relevant Coursework: Machine Learning, Statistical Modeling, Data Visualization, Data Analysis</li>
+                            <li>Capstone: Built a predictive healthcare cost model using Python (XGBoost, Random Forest)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <h3>Bachelor of Information Technology</h3>
+                        <div class="company">University of Mumbai</div>
+                        <div class="duration">2019 – 2022 | CGPA: 8.57</div>
+                        <ul>
+                            <li>Strong foundation in computer science fundamentals and software development</li>
+                            <li>Excellent academic performance with distinction</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Projects Section -->
+            <section id="projects" class="section">
+                <h2 class="section-title">Featured Projects</h2>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <i class="fas fa-heartbeat"></i>
+                            <h3>Healthcare Insurance Cost Prediction</h3>
+                        </div>
+                        <div class="project-body">
+                            <p>Developed advanced regression models using Python and SQL to predict healthcare insurance costs with 92% accuracy. Created comprehensive Tableau visualizations to identify key cost drivers and patterns.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">Python</span>
+                                <span class="project-tag">SQL</span>
+                                <span class="project-tag">Machine Learning</span>
+                                <span class="project-tag">Tableau</span>
+                                <span class="project-tag">XGBoost</span>
+                                <span class="project-tag">Random Forest</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-header">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3>E-Commerce Shopping App</h3>
+                        </div>
+                        <div class="project-body">
+                            <p>Built a comprehensive Python-based e-commerce application featuring secure authentication, database management, and optimized user experience. Reduced checkout time by 40% through efficient design.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">Python</span>
+                                <span class="project-tag">Database Management</span>
+                                <span class="project-tag">Authentication</span>
+                                <span class="project-tag">UX Design</span>
+                                <span class="project-tag">Payment Integration</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Certifications -->
+                <h3 style="color: #ffd700; margin: 50px 0 30px 0; font-size: 1.8em;">Certifications</h3>
+                <div class="certifications-grid">
+                    <div class="cert-card">
+                        <h4>CS50's Introduction to Computer Science</h4>
+                        <p>Harvard University (2022)</p>
+                    </div>
+                    
+                    <div class="cert-card">
+                        <h4>Responsive Web Design Certification</h4>
+                        <p>freeCodeCamp (2021)</p>
+                    </div>
